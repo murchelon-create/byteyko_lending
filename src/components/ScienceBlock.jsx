@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Brain, Activity, Heart, Stethoscope, UserCircle2, Award, FlaskConical } from 'lucide-react';
+import { Brain, Activity, Heart, Stethoscope, UserCircle2, Award, FlaskConical, Microscope, Zap } from 'lucide-react';
 import '../styles/ScienceBlock.css';
 
 const buteikoPhoto = process.env.PUBLIC_URL + '/images/Buteiko.jpg';
@@ -189,6 +189,7 @@ const ScienceBlock = () => {
       icon: <Brain size={24} />,
       content: (
         <div className="science-cards">
+
           <div className="science-card">
             <div className="card-icon">
               <Brain size={60} color="#4cdfff" />
@@ -204,14 +205,19 @@ const ScienceBlock = () => {
                 <div className="stat-description">восстановление</div>
               </div>
             </div>
-            <p>Нормализация CO₂ активирует блуждающий нерв («нерв спокойствия»), снижает тревожность и улучшает качество сна. Парасимпатическая нервная система переходит в режим восстановления.</p>
+            <p>
+              Нормализация CO₂ активирует блуждающий нерв («нерв спокойствия»), снижает тревожность и улучшает качество сна.
+              Парасимпатическая нервная система переходит в режим восстановления. По словам А.Е. Новожилова, главного врача
+              клиники Бутейко в Москве: пока человек «в методе» (лёгкий недостаток воздуха + расслабление) —
+              его практически невозможно вывести на конфликт или панику.
+            </p>
           </div>
 
           <div className="science-card">
             <div className="card-icon">
               <Activity size={60} color="#4cdfff" />
             </div>
-            <h3>Биохимические изменения</h3>
+            <h3>CO₂ — главный регулятор pH</h3>
             <div className="stats-container">
               <div className="stat-item">
                 <div className="stat-value negative">-23%</div>
@@ -222,8 +228,61 @@ const ScienceBlock = () => {
                 <div className="stat-description">кислород в тканях</div>
               </div>
             </div>
-            <p>Восстановление нормального уровня CO₂ стабилизирует pH крови, снижает окислительный стресс и повышает эффективность доставки кислорода к клеткам — эффект Вериго–Бора.</p>
+            <p>
+              CO₂ — <strong>единственный реальный регулятор pH крови</strong>. Никакие диеты, добавки и растворы
+              не способны значимо изменить системный pH — это делает только дыхание. Восстановление нормального
+              уровня CO₂ стабилизирует кислотно-щелочной баланс, снижает окислительный стресс и повышает доставку
+              кислорода к клеткам — <strong>эффект Вериго–Бора</strong>.
+            </p>
           </div>
+
+          <div className="science-card">
+            <div className="card-icon">
+              <Heart size={60} color="#4cdfff" />
+            </div>
+            <h3>Кожа, ЖКТ и микроциркуляция</h3>
+            <div className="stats-container">
+              <div className="stat-item">
+                <div className="stat-value">капилляры</div>
+                <div className="stat-description">восстановление кровотока</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">ЖКТ</div>
+                <div className="stat-description">моторика кишечника</div>
+              </div>
+            </div>
+            <p>
+              Гипервентиляция вызывает <strong>спазм капилляров</strong> → нарушение микроциркуляции → тканевая гипоксия
+              → кожные заболевания, дерматиты, аллергия. Нормализация дыхания устраняет капиллярный спазм и
+              восстанавливает кровоснабжение органов. Из клинической практики: пациенты с астмой отмечали
+              исчезновение запоров на 3-й день занятий — нормализовалась моторная функция кишечника.
+            </p>
+          </div>
+
+          <div className="science-card">
+            <div className="card-icon">
+              <Zap size={60} color="#4cdfff" />
+            </div>
+            <h3>Контрольная пауза — измеримый результат</h3>
+            <div className="stats-container">
+              <div className="stat-item">
+                <div className="stat-value">45 сек</div>
+                <div className="stat-description">медицинская норма CO₂</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">15+ лет</div>
+                <div className="stat-description">ремиссия при КП ≥ 45 сек</div>
+              </div>
+            </div>
+            <p>
+              Контрольная пауза (КП) — запатентованный Бутейко способ измерения CO₂ в альвеолярном воздухе.
+              Аналог градусника, но для дыхания. <strong>КП &lt; 20 сек</strong> — бронхи закрыты, острые симптомы.
+              <strong> КП 20–45 сек</strong> — возможна жизнь без лекарств, но воспаление сохраняется.
+              <strong> КП ≥ 45 сек</strong> стабильно на протяжении месяцев — хроническое аллергическое
+              воспаление уходит в ремиссию на 15 и более лет.
+            </p>
+          </div>
+
         </div>
       )
     },
@@ -233,6 +292,7 @@ const ScienceBlock = () => {
       icon: <Activity size={24} />,
       content: (
         <div className="science-cards">
+
           <div className="science-card">
             <div className="card-icon">
               <Activity size={60} color="#4cdfff" />
@@ -269,10 +329,60 @@ const ScienceBlock = () => {
             <p>Исследования (Indian Journal of Physiotherapy, 2022) фиксируют снижение АД и частоты сердцебиения у пациентов с гипертонией после 4–6 недель практики. По официальной апробации 1990 года улучшение при гипертонии составило 96,2%.</p>
           </div>
 
+          <div className="science-card">
+            <div className="card-icon">
+              <FlaskConical size={60} color="#4cdfff" />
+            </div>
+            <h3>Комплексный эффект апробации</h3>
+            <div className="stats-container">
+              <div className="stat-item">
+                <div className="stat-value">≈90%</div>
+                <div className="stat-description">заболеваемости населения</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">179</div>
+                <div className="stat-description">нозологий охвачено</div>
+              </div>
+            </div>
+            <p>
+              На государственных апробациях пациенты приходили с диагнозом «бронхиальная астма», однако
+              практически у каждого были сопутствующие заболевания: <strong>кожные болезни, аллергия,
+              нарушения ЖКТ</strong>. После курса по методу Бутейко проходили все эти состояния одновременно.
+              По данным А.Е. Новожилова, главного врача клиники Бутейко в Москве, у астматиков параллельно
+              улучшался и <strong>сахарный диабет 2 типа</strong>. 179 заболеваний метода охватывают
+              около 90% всей заболеваемости населения.
+            </p>
+          </div>
+
+          <div className="science-card">
+            <div className="card-icon">
+              <Brain size={60} color="#4cdfff" />
+            </div>
+            <h3>Научный критерий эффективности</h3>
+            <div className="stats-container">
+              <div className="stat-item">
+                <div className="stat-value">CO₂</div>
+                <div className="stat-description">измеримый параметр</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-value">#1</div>
+                <div className="stat-description">в мире с доказанным KPI</div>
+              </div>
+            </div>
+            <p>
+              Метод Бутейко — <strong>единственная дыхательная методика в мире</strong> с измеримым
+              научным показателем эффективности. Любая методика даёт лечебный эффект только если нормализует
+              уровень CO₂ — без его измерения это маркетинг, а не медицина. Контрольная пауза (КП)
+              является запатентованным индикатором альвеолярного CO₂ и позволяет объективно отслеживать
+              динамику лечения.
+            </p>
+          </div>
+
           <div className="research-info">
             <div className="info-icon">i</div>
             <p><strong>Cochrane Review 2020</strong> подтверждает умеренное улучшение качества жизни и функции лёгких. Систематические обзоры (Australian Government Department of Health, 2015) рекомендуют метод как эффективное дополнение к стандартному лечению астмы, апноэ сна, ХОБЛ и тревожных расстройств.</p>
           </div>
+
         </div>
       )
     },

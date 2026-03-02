@@ -9,7 +9,6 @@ import BreathingConsequences from './components/BreathingConsequences';
 import ScienceBlock from './components/ScienceBlock';
 import AboutMe from './components/AboutMe';
 import Reviews from './components/Reviews';
-import BreathingTest from './components/BreathingTest';
 import Products from './components/Products';
 import FAQ from './components/FAQ';
 import ScrollToTop from './components/ScrollToTop';
@@ -31,7 +30,6 @@ function App() {
       <AboutBreathing />
       <AboutMe />
       <Reviews />
-      <BreathingTest />
       <ProductComparison />
       <Products />
       <FAQ />
@@ -42,4 +40,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

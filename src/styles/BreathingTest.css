@@ -1,0 +1,621 @@
+/* Основные стили для секции теста */
+.test-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0,196,170,0.1) 0%, rgba(0,196,170,0.05) 100%);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.test-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px;
+  position: relative;
+}
+
+/* Модальное окно теста */
+.test-modal {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Шапка модального окна */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 196, 170, 0.1);
+  padding: 8px 16px;
+  border-radius: 100px;
+}
+
+.status-icon {
+  width: 8px;
+  height: 8px;
+  background: #00C4AA;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-icon::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  animation: pulse 2s infinite;
+}
+
+.status-text {
+  font-size: 14px;
+  color: #00C4AA;
+  font-weight: 500;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.modal-title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.modal-title h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.health-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.health-question {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.health-question p {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+
+.health-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.health-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.health-option:hover {
+  border-color: #00C4AA;
+  background: rgba(0, 196, 170, 0.05);
+}
+
+.health-option input {
+  display: none;
+}
+
+.checkbox-custom, .radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #E5E7EB;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.radio-custom {
+  border-radius: 50%;
+}
+
+.health-option input:checked + .checkbox-custom,
+.health-option input:checked + .radio-custom {
+  border-color: #00C4AA;
+  background: #00C4AA;
+}
+
+.health-option input:checked + .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.health-option input:checked + .radio-custom::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.option-title {
+  font-weight: 500;
+  color: #333;
+}
+
+.option-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.disclaimers {
+  margin-bottom: 24px;
+}
+
+.disclaimer-text {
+  font-size: 14px;
+  color: #666;
+  padding: 12px 16px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.cta-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #00C4AA 0%, #00A3C4 100%);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 196, 170, 0.2);
+}
+
+.button-icon {
+  transition: transform 0.3s;
+}
+
+.cta-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+/* Стили для экрана с вопросом про астму */
+.test-question {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.test-progress {
+  margin-bottom: 32px;
+}
+
+.question-counter {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #00C4AA;
+  transition: width 0.3s;
+}
+
+.question-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.option-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.option-card:hover {
+  border-color: #00C4AA;
+  background: rgba(0, 196, 170, 0.05);
+}
+
+.option-text {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Стили для экрана результатов */
+.test-results {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.results-content {
+  text-align: center;
+}
+
+.results-title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.results-subtitle {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.results-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.summary-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #F9FAFB;
+  border-radius: 100px;
+  font-size: 14px;
+  color: #333;
+}
+
+.condition-tag {
+  background: rgba(0, 196, 170, 0.1);
+  color: #00C4AA;
+}
+
+.results-card {
+  background: #F9FAFB;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.results-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.problem-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+}
+
+.problem-icon {
+  font-size: 24px;
+}
+
+.problem-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.problem-title {
+  font-weight: 500;
+  color: #333;
+}
+
+.problem-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.next-steps {
+  text-align: left;
+}
+
+.next-steps h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.next-steps p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #666;
+}
+
+.form-group input {
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #00C4AA;
+  outline: none;
+}
+
+.results-button {
+  width: 100%;
+  justify-content: center;
+}
+
+.results-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 12px;
+}
+
+.guarantee-icon {
+  font-size: 24px;
+}
+
+.guarantee-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.time-remaining,
+.security-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .test-modal {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .modal-title h2 {
+    font-size: 24px;
+  }
+
+  .health-options {
+    grid-template-columns: 1fr;
+  }
+
+  .results-title {
+    font-size: 28px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+.breathing-test {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.test-screen {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.test-screen h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.test-screen p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.progress {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.option-button {
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-button:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+/* Специфичные стили для кнопок теста */
+.breathing-test button {
+  padding: 12px 24px;
+  background: #00C4AA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.breathing-test button:hover {
+  background: #00A392;
+}
+
+.results {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.result-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.result-item p {
+  margin: 5px 0;
+} 

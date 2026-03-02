@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Quote, X, ChevronLeft, ChevronRight, Image as ImageIcon, CheckCircle, MessageCircle, Calendar, Star, ThumbsUp, Shield } from 'lucide-react';
 
-const reviews = [
+const initialReviews = [
   {
     name: 'Любовь',
     surname: '',
     verified: true,
-    telegramUsername: '@lubov_p',
+    telegramUsername: '@Liybov_Bardina',
     rating: 5,
     content: `Хочу оставить отзыв о прохождении курса техники дыхания у Анастасии. Раньше постоянно боролась с тревогой. Техники дыхания, которые я изучила на курсе, оказались простыми, но невероятно эффективными.`,
     fullContent: `Хочу оставить отзыв о прохождении курса техники дыхания у Анастасии. Раньше постоянно боролась с тревогой. Техники дыхания, которые я изучила на курсе, оказались простыми, но невероятно эффективными. Научившись правильно дышать, я почувствовала значительное облегчение. Научилась справляться с тревожностью. Каждый урок наполнен полезной информацией и практическими упражнениями, которые я смогу применять в повседневной жизни. Удивительно было как дыхание связано с нашими эмоциями. Теперь я могу управлять своим состоянием.`,
@@ -16,7 +16,8 @@ const reviews = [
       'повышение энергии': '70%'
     },
     date: '9 февраля 2024',
-    image: '/reviews/otviv1.jpg',
+    avatar: `${process.env.PUBLIC_URL}/reviews/luba.jpg`,
+    image: `${process.env.PUBLIC_URL}/reviews/otviv1.jpg`,
     likes: 24,
     courseDuration: '2 месяца'
   },
@@ -34,7 +35,8 @@ const reviews = [
       'общее самочувствие': '85%'
     },
     date: '15 марта 2024',
-    image: '/reviews/otziv2.jpg',
+    avatar: `${process.env.PUBLIC_URL}/reviews/ALEXENDRA.jpg`,
+    image: `${process.env.PUBLIC_URL}/reviews/otziv2.jpg`,
     likes: 18,
     courseDuration: '1 месяц'
   },
@@ -59,38 +61,97 @@ const reviews = [
 
 const VerificationButton = ({ onVerify }) => {
   const [isVerifying, setIsVerifying] = useState(false);
-  const botUsername = 'BreathingPracticeVerifyBot'; // Замените на username вашего бота
+  const botToken = '7849599077:AAH96ZuPF0GGJPcAbWsHgSJgs7-IXa0z1I8';
+  const botUsername = 'breathing_otziv_bot';
 
   const handleVerification = async () => {
     setIsVerifying(true);
     
-    // Генерируем уникальный код верификации
-    const verificationCode = Math.random().toString(36).substring(7);
+    // Генерируем код верификации из 6 символов
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    localStorage.setItem('verificationCode', code);
     
-    // Сохраняем код в localStorage
-    localStorage.setItem('verificationCode', verificationCode);
-    
-    // Открываем Telegram с ботом
-    window.open(`https://t.me/breathing_practices_bot?start=${verificationCode}`, '_blank');
+    // Открываем чат с ботом и передаем код
+    window.open(`https://t.me/breathing_otziv_bot?start=${code}`, '_blank');
     
     // Начинаем проверку верификации
-    checkVerification(verificationCode);
+    checkVerificationStatus(code);
   };
 
-  const checkVerification = async (code) => {
-    try {
-      // Здесь будет запрос к вашему API для проверки верификации
-      const response = await fetch(`/api/check-verification?code=${code}`);
-      const data = await response.json();
-      
-      if (data.verified) {
-        onVerify(data.telegramUsername);
+  const checkVerificationStatus = async (code) => {
+    let attempts = 0;
+    const maxAttempts = 100; // 5 минут (с интервалом в 3 секунды)
+    let botWindow = null; // Сохраняем ссылку на окно бота
+    
+    const checkStatus = async () => {
+      try {
+        // Сначала очищаем старые обновления
+        await fetch(`https://api.telegram.org/bot${botToken}/getUpdates?offset=-1`);
+        
+        // Теперь получаем новые обновления
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/getUpdates`);
+        const data = await response.json();
+        
+        console.log('Telegram API response:', data); // Для отладки
+        
+        if (data.ok) {
+          // Проверяем все возможные форматы команды start
+          const update = data.result.find(update => {
+            const messageText = update.message?.text || '';
+            console.log('Checking message:', messageText, 'against code:', code); // Для отладки
+            return messageText.includes(code);
+          });
+          
+          if (update) {
+            // Нашли подтверждение
+            const username = update.message.from.username || 
+                           `user${update.message.from.id}`;
+            // Сохраняем статус верификации
+            localStorage.setItem('isVerified', 'true');
+            localStorage.setItem('telegramUsername', username);
+            onVerify(username);
+            setIsVerifying(false);
+            
+            // Закрываем окно бота через небольшую задержку
+            setTimeout(() => {
+              if (botWindow && !botWindow.closed) {
+                botWindow.close();
+              }
+            }, 1000);
+            return;
+          }
+          
+          if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(checkStatus, 3000);
+          } else {
+            setIsVerifying(false);
+            alert('Время верификации истекло. Попробуйте еще раз.');
+            if (botWindow && !botWindow.closed) {
+              botWindow.close();
+            }
+          }
+        } else {
+          console.error('Ошибка API Telegram:', data);
+          setIsVerifying(false);
+          alert('Ошибка проверки. Попробуйте позже.');
+          if (botWindow && !botWindow.closed) {
+            botWindow.close();
+          }
+        }
+      } catch (error) {
+        console.error('Ошибка проверки верификации:', error);
+        setIsVerifying(false);
+        alert('Ошибка соединения. Проверьте подключение к интернету.');
+        if (botWindow && !botWindow.closed) {
+          botWindow.close();
+        }
       }
-    } catch (error) {
-      console.error('Ошибка верификации:', error);
-    } finally {
-      setIsVerifying(false);
-    }
+    };
+    
+    // Открываем окно бота и сохраняем ссылку на него
+    botWindow = window.open(`https://t.me/breathing_otziv_bot?start=${code}`, '_blank');
+    checkStatus();
   };
 
   return (
@@ -105,20 +166,31 @@ const VerificationButton = ({ onVerify }) => {
   );
 };
 
-const ReviewForm = ({ onSubmit }) => {
-  const [isVerified, setIsVerified] = useState(false);
-  const [telegramUsername, setTelegramUsername] = useState('');
+const ReviewForm = ({ onSubmit, onClose }) => {
+  const [isVerified, setIsVerified] = useState(() => localStorage.getItem('isVerified') === 'true');
+  const [telegramUsername, setTelegramUsername] = useState(() => localStorage.getItem('telegramUsername') || '');
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
     rating: 5,
     content: '',
-    image: null
+    avatar: null,
+    image: null,
+    results: {
+      'улучшение сна': '0',
+      'снижение стресса': '0',
+      'повышение энергии': '0'
+    }
   });
 
   const handleVerification = (username) => {
     setIsVerified(true);
     setTelegramUsername(username);
+    // Закрываем уведомление
+    const notification = document.querySelector('[role="alert"]');
+    if (notification) {
+      notification.remove();
+    }
   };
 
   const handleSubmit = (e) => {
@@ -133,8 +205,33 @@ const ReviewForm = ({ onSubmit }) => {
       verified: true,
       telegramUsername,
       date: new Date().toLocaleDateString('ru-RU'),
-      likes: 0
+      likes: 0,
+      fullContent: formData.content
     });
+
+    // Сбрасываем верификацию после отправки отзыва
+    localStorage.removeItem('isVerified');
+    localStorage.removeItem('telegramUsername');
+    setIsVerified(false);
+    setTelegramUsername('');
+    
+    // Сбрасываем форму
+    setFormData({
+      name: '',
+      surname: '',
+      rating: 5,
+      content: '',
+      avatar: null,
+      image: null,
+      results: {
+        'улучшение сна': '0',
+        'снижение стресса': '0',
+        'повышение энергии': '0'
+      }
+    });
+    
+    // Закрываем модальное окно с формой
+    onClose();
   };
 
   return (
@@ -220,16 +317,60 @@ const ReviewForm = ({ onSubmit }) => {
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Фото отзыва (опционально)
+      <div className="space-y-4">
+        <label className="block text-sm font-medium text-gray-700">
+          Оцените результаты (в процентах)
         </label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-          className="w-full"
-        />
+        <div className="grid gap-4">
+          {Object.entries(formData.results).map(([key, value]) => (
+            <div key={key} className="flex items-center gap-4">
+              <label className="text-sm text-gray-600 flex-1">
+                {key}
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={value}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  results: {
+                    ...formData.results,
+                    [key]: e.target.value
+                  }
+                })}
+                className="w-24 px-4 py-2 rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+              />
+              <span className="text-sm text-gray-500">%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Ваша фотография (аватар)
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFormData({ ...formData, avatar: e.target.files[0] })}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Фото отзыва (опционально)
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
+            className="w-full"
+          />
+        </div>
       </div>
 
       <button
@@ -246,37 +387,41 @@ const ReviewCard = ({ review, onClick, onImageClick }) => {
   return (
     <div 
       onClick={onClick}
-      className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 h-full flex flex-col"
     >
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-4">
         <div className="relative">
-          {review.image ? (
-            <div className="w-16 h-16 rounded-full overflow-hidden">
+          {review.avatar ? (
+            <div className="w-14 h-14 rounded-full overflow-hidden">
               <img 
-                src={review.image} 
-                alt={`${review.name} ${review.surname}`}
+                src={review.avatar} 
+                alt={`Аватар ${review.name}`}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('Ошибка загрузки аватара:', e);
+                  e.target.src = `${process.env.PUBLIC_URL}/images/default-avatar.jpg`;
+                }}
               />
             </div>
           ) : (
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
-              <span className="text-2xl font-bold text-white">{review.name[0]}</span>
+            <div className="w-14 h-14 rounded-full overflow-hidden bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+              <span className="text-xl font-bold text-white">{review.name[0]}</span>
             </div>
           )}
           {review.verified && (
-            <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-1.5 shadow-lg">
-              <CheckCircle className="h-4 w-4 text-white" />
+            <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1 shadow-lg">
+              <CheckCircle className="h-3 w-3 text-white" />
             </div>
           )}
         </div>
-        <div className="ml-4 flex-1">
+        <div className="ml-3 flex-1">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h3 className="text-base font-semibold text-gray-900 flex items-center gap-2">
                 {review.name}
                 {review.verified && (
-                  <span className="text-sm text-teal-600 flex items-center">
-                    <MessageCircle className="h-4 w-4 mr-1" />
+                  <span className="text-xs text-teal-600 flex items-center">
+                    <MessageCircle className="h-3 w-3 mr-1" />
                     {review.telegramUsername}
                   </span>
                 )}
@@ -285,32 +430,28 @@ const ReviewCard = ({ review, onClick, onImageClick }) => {
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                    className={`h-3 w-3 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
                   />
                 ))}
-                <span className="text-sm text-gray-500 ml-2">
+                <span className="text-xs text-gray-500 ml-2">
                   • {review.courseDuration}
                 </span>
               </div>
-            </div>
-            <div className="flex items-center text-gray-500 text-sm">
-              <Calendar className="h-4 w-4 mr-1" />
-              {review.date}
             </div>
           </div>
         </div>
       </div>
 
-      <p className="text-gray-600 line-clamp-4 mb-4">
+      <p className="text-gray-600 text-sm line-clamp-4 mb-4 flex-grow">
         {review.content}
       </p>
 
       {review.results && (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-2 mb-4">
           {Object.entries(review.results).map(([key, value]) => (
-            <div key={key} className="bg-teal-50 rounded-lg p-3 text-center">
-              <div className="text-lg font-bold text-teal-700">{value}</div>
-              <div className="text-sm text-teal-600">
+            <div key={key} className="bg-teal-50 rounded-lg p-2 text-center">
+              <div className="text-base font-bold text-teal-700">{value}</div>
+              <div className="text-xs text-teal-600">
                 {key}
               </div>
             </div>
@@ -318,16 +459,16 @@ const ReviewCard = ({ review, onClick, onImageClick }) => {
         </div>
       )}
       
-      <div className="mt-4 flex justify-between items-center">
-        <span className="text-teal-600 text-sm font-medium">
+      <div className="mt-auto pt-4 flex justify-between items-center border-t border-gray-100">
+        <span className="text-teal-600 text-xs font-medium">
           Нажмите, чтобы прочитать полностью
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <button
             className="flex items-center gap-1 text-gray-500 hover:text-teal-600 transition-colors"
           >
             <ThumbsUp className="h-4 w-4" />
-            <span className="text-sm">{review.likes}</span>
+            <span className="text-xs">{review.likes}</span>
           </button>
           {review.image && (
             <button
@@ -335,10 +476,10 @@ const ReviewCard = ({ review, onClick, onImageClick }) => {
                 e.stopPropagation();
                 onImageClick(review.image);
               }}
-              className="flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
+              className="flex items-center gap-1 text-teal-600 hover:text-teal-700 transition-colors"
             >
-              <ImageIcon className="h-5 w-5" />
-              <span className="text-sm font-medium">Фото отзыва</span>
+              <ImageIcon className="h-4 w-4" />
+              <span className="text-xs font-medium">Фото</span>
             </button>
           )}
         </div>
@@ -348,7 +489,7 @@ const ReviewCard = ({ review, onClick, onImageClick }) => {
 };
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState(initialReviews);
   const [newReview, setNewReview] = useState('');
   const [rating, setRating] = useState(5);
   const [selectedReview, setSelectedReview] = useState(null);
@@ -360,6 +501,12 @@ const Reviews = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [telegramUsername, setTelegramUsername] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
+  const [displayedReviews, setDisplayedReviews] = useState(3);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const botToken = '7849599077:AAH96ZuPF0GGJPcAbWsHgSJgs7-IXa0z1I8';
+  const botUsername = 'breathing_otziv_bot';
 
   const showNext = () => {
     if (isAnimating) return;
@@ -371,6 +518,14 @@ const Reviews = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+  };
+
+  const showMoreReviews = () => {
+    setDisplayedReviews(reviews.length); // Показать все отзывы
+  };
+
+  const showLessReviews = () => {
+    setDisplayedReviews(3); // Показать только 3 отзыва
   };
 
   useEffect(() => {
@@ -395,65 +550,142 @@ const Reviews = () => {
   const startVerification = () => {
     const code = generateVerificationCode();
     setVerificationCode(code);
-    window.open(`https://t.me/breathing_practices_bot?start=${code}`, '_blank');
+    window.open(`https://t.me/breathing_otziv_bot?start=${code}`, '_blank');
     checkVerificationStatus(code);
   };
 
   const checkVerificationStatus = async (code) => {
-    setIsVerifying(true);
-    try {
-      const response = await fetch(`http://localhost:3001/api/check-verification?code=${code}`);
-      const data = await response.json();
-      
-      if (data.verified) {
-        setIsVerified(true);
-        setTelegramUsername(data.telegramUsername);
-        setIsVerifying(false);
-      } else {
-        // Повторяем проверку каждые 3 секунды в течение 5 минут
-        setTimeout(() => {
-          if (!isVerified) {
-            checkVerificationStatus(code);
+    let attempts = 0;
+    const maxAttempts = 100; // 5 минут (с интервалом в 3 секунды)
+    let botWindow = null; // Сохраняем ссылку на окно бота
+    
+    const checkStatus = async () => {
+      try {
+        // Сначала очищаем старые обновления
+        await fetch(`https://api.telegram.org/bot${botToken}/getUpdates?offset=-1`);
+        
+        // Теперь получаем новые обновления
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/getUpdates`);
+        const data = await response.json();
+        
+        console.log('Telegram API response:', data); // Для отладки
+        
+        if (data.ok) {
+          // Проверяем все возможные форматы команды start
+          const update = data.result.find(update => {
+            const messageText = update.message?.text || '';
+            console.log('Checking message:', messageText, 'against code:', code); // Для отладки
+            return messageText.includes(code);
+          });
+          
+          if (update) {
+            // Нашли подтверждение
+            const username = update.message.from.username || 
+                           `user${update.message.from.id}`;
+            // Сохраняем статус верификации
+            localStorage.setItem('isVerified', 'true');
+            localStorage.setItem('telegramUsername', username);
+            setIsVerified(true);
+            setTelegramUsername(username);
+            setIsVerifying(false);
+            
+            // Закрываем окно бота через небольшую задержку
+            setTimeout(() => {
+              if (botWindow && !botWindow.closed) {
+                botWindow.close();
+              }
+            }, 1000);
+            return;
           }
-        }, 3000);
+          
+          if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(checkStatus, 3000);
+          } else {
+            setIsVerifying(false);
+            alert('Время верификации истекло. Попробуйте еще раз.');
+            if (botWindow && !botWindow.closed) {
+              botWindow.close();
+            }
+          }
+        } else {
+          console.error('Ошибка API Telegram:', data);
+          setIsVerifying(false);
+          alert('Ошибка проверки. Попробуйте позже.');
+          if (botWindow && !botWindow.closed) {
+            botWindow.close();
+          }
+        }
+      } catch (error) {
+        console.error('Ошибка проверки верификации:', error);
+        setIsVerifying(false);
+        alert('Ошибка соединения. Проверьте подключение к интернету.');
+        if (botWindow && !botWindow.closed) {
+          botWindow.close();
+        }
       }
-    } catch (error) {
-      console.error('Ошибка при проверке верификации:', error);
-      setIsVerifying(false);
-    }
+    };
+    
+    // Открываем окно бота и сохраняем ссылку на него
+    botWindow = window.open(`https://t.me/breathing_otziv_bot?start=${code}`, '_blank');
+    checkStatus();
   };
 
   const handleSubmitReview = async (reviewData) => {
-    if (!isVerified) {
-      alert('Пожалуйста, пройдите верификацию через Telegram перед отправкой отзыва');
-      return;
-    }
-
     try {
-      const response = await fetch('http://localhost:3001/api/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...reviewData,
-          telegramUsername,
-          verified: true
-        }),
-      });
+      // Создаем URL для изображений, если они есть
+      const avatarUrl = reviewData.avatar ? URL.createObjectURL(reviewData.avatar) : null;
+      const imageUrl = reviewData.image ? URL.createObjectURL(reviewData.image) : null;
 
-      const data = await response.json();
-      if (data.success) {
-        // Очищаем форму и обновляем список отзывов
-        // ... existing code ...
-      }
+      const newReview = {
+        ...reviewData,
+        avatar: avatarUrl,
+        image: imageUrl,
+        results: {
+          ...reviewData.results,
+          // Добавляем % к значениям, если их нет
+          'улучшение сна': reviewData.results['улучшение сна'].includes('%') ? 
+            reviewData.results['улучшение сна'] : 
+            `${reviewData.results['улучшение сна']}%`,
+          'снижение стресса': reviewData.results['снижение стресса'].includes('%') ? 
+            reviewData.results['снижение стресса'] : 
+            `${reviewData.results['снижение стресса']}%`,
+          'повышение энергии': reviewData.results['повышение энергии'].includes('%') ? 
+            reviewData.results['повышение энергии'] : 
+            `${reviewData.results['повышение энергии']}%`
+        }
+      };
+      
+      setReviews(prevReviews => [newReview, ...prevReviews]);
+      setShowReviewForm(false);
+      
+      // Показываем и скрываем сообщение об успехе
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+      
     } catch (error) {
-      console.error('Ошибка при отправке отзыва:', error);
+      console.error('Ошибка при публикации отзыва:', error);
+      alert('Произошла ошибка при публикации отзыва. Пожалуйста, попробуйте позже.');
     }
   };
 
+  // Компонент уведомления об успехе
+  const SuccessMessage = () => (
+    <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-down">
+      <div className="flex items-center">
+        <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+        <span>Спасибо! Ваш отзыв успешно опубликован</span>
+      </div>
+    </div>
+  );
+
   return (
     <section id="reviews" className="py-20 bg-gradient-to-b from-primary-100 to-white">
+      {showSuccessMessage && <SuccessMessage />}
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <div className="inline-block p-3 bg-teal-100 rounded-full mb-4">
@@ -467,7 +699,43 @@ const Reviews = () => {
           </p>
         </div>
 
-        <div className="relative">
+        {/* Desktop view */}
+        <div className="hidden md:block">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+            {reviews.slice(0, displayedReviews).map((review, index) => (
+              <ReviewCard
+                key={index}
+                review={review}
+                onClick={() => setSelectedReview(review)}
+                onImageClick={(image) => setSelectedImage(image)}
+              />
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            {reviews.length > 3 && (
+              displayedReviews === 3 ? (
+                <button
+                  onClick={showMoreReviews}
+                  className="inline-flex items-center gap-2 bg-white text-teal-600 font-semibold px-8 py-4 rounded-full border-2 border-teal-600 hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Больше историй от наших клиентов
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              ) : (
+                <button
+                  onClick={showLessReviews}
+                  className="inline-flex items-center gap-2 bg-white text-teal-600 font-semibold px-8 py-4 rounded-full border-2 border-teal-600 hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Показать меньше
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+              )
+            )}
+          </div>
+        </div>
+
+        {/* Mobile view with carousel */}
+        <div className="md:hidden relative">
           <div className="overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
@@ -490,7 +758,7 @@ const Reviews = () => {
             </div>
           </div>
 
-          {/* Кнопки навигации */}
+          {/* Mobile navigation buttons */}
           <button
             onClick={showPrev}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
@@ -506,7 +774,7 @@ const Reviews = () => {
             <ChevronRight className="h-6 w-6 text-teal-600" />
           </button>
 
-          {/* Индикаторы */}
+          {/* Mobile indicators */}
           <div className="flex justify-center mt-8 space-x-2">
             {reviews.map((_, index) => (
               <button
@@ -623,7 +891,7 @@ const Reviews = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   Оставить отзыв
                 </h3>
-                <ReviewForm onSubmit={handleSubmitReview} />
+                <ReviewForm onSubmit={handleSubmitReview} onClose={() => setShowReviewForm(false)} />
               </div>
             </div>
           </div>
@@ -632,5 +900,28 @@ const Reviews = () => {
     </section>
   );
 };
+
+// Добавим стили для анимации
+const styles = `
+  @keyframes fade-in-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-down {
+    animation: fade-in-down 0.5s ease-out;
+  }
+`;
+
+// Добавляем стили в head
+const styleSheet = document.createElement("style");
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
 
 export default Reviews; 

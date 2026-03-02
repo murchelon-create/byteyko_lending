@@ -2,6 +2,10 @@
 <map version="1.0.1">
   <node TEXT="Дыхательные практики">
     <node TEXT="Главная страница" POSITION="right">
+      <node TEXT="Шапка сайта">
+        <node TEXT="Логотип" />
+        <node TEXT="Навигационное меню" />
+      </node>
       <node TEXT="Hero секция">
         <node TEXT="Заголовок: Избавьтесь от тревоги и усталости уже сегодня" />
         <node TEXT="Подзаголовок: Всего 10 минут в день" />
@@ -11,20 +15,6 @@
           <node TEXT="Параллакс фона" />
           <node TEXT="Плавающие частицы" />
           <node TEXT="Волна внизу" />
-        </node>
-      </node>
-      <node TEXT="Экспресс-тест">
-        <node TEXT="Модальное окно">
-          <node TEXT="11 вопросов" />
-          <node TEXT="Прогресс-бар" />
-          <node TEXT="Анимированные переходы" />
-          <node TEXT="Счетчик активных пользователей" />
-        </node>
-        <node TEXT="Результаты">
-          <node TEXT="3 категории оценки" />
-          <node TEXT="Персональные рекомендации" />
-          <node TEXT="PDF-гайд в подарок" />
-          <node TEXT="Специальное предложение" />
         </node>
       </node>
     </node>
@@ -45,8 +35,60 @@
         </node>
         <node TEXT="Интерактивные карточки" />
       </node>
+      <node TEXT="Последствия неправильного дыхания">
+        <node TEXT="Влияние на здоровье" />
+        <node TEXT="Статистика" />
+      </node>
     </node>
-    <node TEXT="Продукты" POSITION="right">
+    <node TEXT="Научное обоснование" POSITION="right">
+      <node TEXT="Табы">
+        <node TEXT="Как это работает">
+          <node TEXT="Влияние на нервную систему">
+            <node TEXT="Снижение стресса на 40%" />
+            <node TEXT="Восстановление +35%" />
+          </node>
+          <node TEXT="Биохимические изменения">
+            <node TEXT="Снижение кортизола на 23%" />
+            <node TEXT="Повышение кислорода в тканях на 20%" />
+          </node>
+        </node>
+        <node TEXT="Проверено исследованиями">
+          <node TEXT="Психическое здоровье">
+            <node TEXT="Снижение тревожности на 48%" />
+            <node TEXT="Уменьшение симптомов депрессии на 42%" />
+          </node>
+          <node TEXT="Физическое здоровье">
+            <node TEXT="Снижение давления на 8mm" />
+            <node TEXT="Укрепление иммунитета на 32%" />
+          </node>
+          <node TEXT="128 научных публикаций" />
+        </node>
+        <node TEXT="Признано медициной">
+          <node TEXT="Организации">
+            <node TEXT="Всемирная организация здравоохранения" />
+            <node TEXT="Американская ассоциация кардиологов" />
+            <node TEXT="Британский национальный институт здоровья" />
+          </node>
+        </node>
+        <node TEXT="Индивидуальный подход">
+          <node TEXT="Физические особенности" />
+          <node TEXT="Здоровье" />
+          <node TEXT="Эмоциональное состояние" />
+          <node TEXT="Дыхательный паттерн" />
+        </node>
+      </node>
+      <node TEXT="Методы">
+        <node TEXT="Метод Бутейко">
+          <node TEXT="100+ заболеваний" />
+          <node TEXT="50+ лет практики" />
+        </node>
+        <node TEXT="Метод Вима Хофа">
+          <node TEXT="300% иммунитет" />
+          <node TEXT="26 рекордов" />
+        </node>
+      </node>
+    </node>
+    <node TEXT="Продукты" POSITION="left">
       <node TEXT="Стартовый комплект">
         <node TEXT="40-минутный видеоурок" />
         <node TEXT="990₽ (скидка 62%)" />
@@ -71,22 +113,39 @@
         <node TEXT="Бонус: урок для детей" />
       </node>
     </node>
-    <node TEXT="Дополнительно" POSITION="left">
-      <node TEXT="Статистика">
-        <node TEXT="Активные пользователи" />
-        <node TEXT="Счетчик тестов" />
-        <node TEXT="Улучшившие дыхание" />
+    <node TEXT="Дополнительные блоки" POSITION="right">
+      <node TEXT="Экспресс-тест">
+        <node TEXT="Модальное окно">
+          <node TEXT="11 вопросов" />
+          <node TEXT="Прогресс-бар" />
+          <node TEXT="Анимированные переходы" />
+          <node TEXT="Счетчик активных пользователей" />
+        </node>
+        <node TEXT="Результаты">
+          <node TEXT="3 категории оценки" />
+          <node TEXT="Персональные рекомендации" />
+          <node TEXT="PDF-гайд в подарок" />
+          <node TEXT="Специальное предложение" />
+        </node>
       </node>
-      <node TEXT="Анимации">
-        <node TEXT="PageTransition" />
-        <node TEXT="SectionTransition" />
-        <node TEXT="Framer Motion" />
+      <node TEXT="О преподавателе">
+        <node TEXT="Опыт" />
+        <node TEXT="Квалификация" />
+        <node TEXT="Достижения" />
       </node>
-      <node TEXT="UI элементы">
-        <node TEXT="Таймеры акций" />
-        <node TEXT="Прогресс-бары" />
-        <node TEXT="Интерактивные кнопки" />
-        <node TEXT="Модальные окна" />
+      <node TEXT="Отзывы">
+        <node TEXT="Карусель отзывов" />
+        <node TEXT="Форма добавления" />
+        <node TEXT="Верификация" />
+      </node>
+      <node TEXT="FAQ">
+        <node TEXT="Частые вопросы" />
+        <node TEXT="Ответы" />
+      </node>
+      <node TEXT="Уведомления">
+        <node TEXT="Всплывающие" />
+        <node TEXT="Боковое меню" />
+        <node TEXT="Настройки" />
       </node>
     </node>
   </node>

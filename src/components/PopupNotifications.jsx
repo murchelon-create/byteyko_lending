@@ -106,6 +106,8 @@ const generateNotification = () => {
 const NotificationItem = ({ notification, onRemove, index }) => {
   const [progress, setProgress] = useState(100);
   const type = notificationTypes[notification.type];
+  const name = notification.text.split(' ')[0]; // Получаем имя из текста
+  const initial = name ? name[0].toUpperCase() : ''; // Первая буква имени
 
   useEffect(() => {
     const startTime = Date.now();
@@ -127,8 +129,7 @@ const NotificationItem = ({ notification, onRemove, index }) => {
     <div 
       className={`
         relative overflow-hidden
-        ${type.bgColor} border ${type.borderColor}
-        shadow-lg rounded-xl p-4 
+        bg-white shadow-lg rounded-xl
         transform transition-all duration-500
         flex items-center
         hover:shadow-xl
@@ -137,38 +138,30 @@ const NotificationItem = ({ notification, onRemove, index }) => {
           : 'opacity-90 translate-x-10 scale-95'}
       `}
       style={{ 
-        animationDelay: `${index * 0.2}s`,
-        minWidth: '300px',
-        backdropFilter: 'blur(8px)'
+        width: '300px',
+        minHeight: '60px'
       }}
     >
-      <div className="mr-4 p-2 rounded-lg">
-        {notification.icon}
+      {/* Аватар */}
+      <div className="flex-shrink-0 w-8 h-8 mx-3 bg-teal-500 rounded-full flex items-center justify-center text-white font-medium">
+        {initial}
       </div>
       
-      <div className="flex-grow">
-        <p className="text-sm font-medium text-gray-800">
+      <div className="flex-grow py-2 pr-2">
+        <p className="text-sm text-gray-800 line-clamp-2">
           {notification.text}
         </p>
-        <div className="flex items-center mt-1">
-          <Clock className="h-4 w-4 text-gray-400 mr-2" />
+        <div className="flex items-center mt-0.5">
           <span className="text-xs text-gray-500">
             {notification.time}
           </span>
         </div>
       </div>
 
-      <button 
-        onClick={() => onRemove(notification.id)}
-        className="ml-4 text-gray-400 hover:text-gray-600 p-1 hover:bg-white/50 rounded-full transition-colors duration-200"
-      >
-        ✕
-      </button>
-
       {/* Индикатор прогресса */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-100">
         <div 
-          className={`h-full transition-all duration-100 ${type.progressColor}`}
+          className="h-full bg-teal-500 transition-all duration-100"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -180,8 +173,8 @@ const PopupNotifications = () => {
   const [activeNotifications, setActiveNotifications] = useState([]);
   const [notificationSettings, setNotificationSettings] = useState({
     browserNotifications: true,
-    soundNotifications: true,
-    maxNotificationsPerDay: 5
+    soundNotifications: false,
+    maxNotificationsPerDay: 3
   });
   const [notificationsToday, setNotificationsToday] = useState(0);
 
@@ -254,11 +247,11 @@ const PopupNotifications = () => {
 
   useEffect(() => {
     if (notificationsToday < notificationSettings.maxNotificationsPerDay) {
-      const initialTimer = setTimeout(addNotification, 5000);
+      const initialTimer = setTimeout(addNotification, 10000); // Первое уведомление через 10 секунд
       const intervalId = setInterval(() => {
-        const randomDelay = Math.floor(Math.random() * 10000) + 20000;
+        const randomDelay = Math.floor(Math.random() * 20000) + 40000; // Интервал 40-60 секунд
         setTimeout(addNotification, randomDelay);
-      }, 25000);
+      }, 60000); // Проверка каждую минуту
 
       return () => {
         clearTimeout(initialTimer);

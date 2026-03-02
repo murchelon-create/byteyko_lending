@@ -1,0 +1,313 @@
+/* Общие стили секции */
+.test-section {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+/* Базовые стили для всех анимированных кнопок */
+.animated-button {
+  position: relative;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 30px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.button-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-text {
+  line-height: 1.2;
+}
+
+/* Стили для главной CTA кнопки с эффектом свечения */
+.primary-button {
+  background: linear-gradient(90deg, #FF7B00, #FF9A40);
+  color: white;
+  box-shadow: 0 6px 20px rgba(255, 123, 0, 0.3);
+  height: 60px;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 123, 0, 0.4);
+}
+
+.primary-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 123, 0, 0.4);
+}
+
+/* Эффект свечения */
+.glow-effect {
+  overflow: hidden;
+}
+
+.glow-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  width: 50px;
+  height: 100%;
+  top: 0;
+  filter: blur(15px);
+  background: rgba(255, 255, 255, 0.5);
+  transform: skewX(-20deg);
+  transition: all 0.6s;
+  opacity: 0;
+}
+
+.primary-button:hover .glow {
+  animation: glow-animation 1.5s infinite;
+  opacity: 1;
+}
+
+@keyframes glow-animation {
+  0% {
+    left: -50px;
+  }
+  100% {
+    left: calc(100% + 50px);
+  }
+}
+
+/* Стили для кнопки предупреждения с эффектом пульсации */
+.warning-button {
+  background: #E53935;
+  color: white;
+  box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+  height: 50px;
+  width: 100%;
+  max-width: 250px;
+  margin: 20px auto;
+}
+
+.warning-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(229, 57, 53, 0.4);
+}
+
+.warning-button:active {
+  transform: translateY(-1px);
+}
+
+.pulse-effect {
+  animation: subtle-pulse 2s infinite;
+}
+
+@keyframes subtle-pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(229, 57, 53, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+  }
+}
+
+/* Стили для информационной кнопки с эффектом блеска */
+.info-button {
+  background: #FFCC00;
+  color: #333;
+  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+  height: 50px;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 204, 0, 0.4);
+}
+
+.info-button .button-text {
+  padding: 16px 30px;
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-30deg);
+}
+
+.info-button:hover .shine {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Стили для переключателей табов */
+.tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 30px;
+  max-width: 800px;
+  margin: 40px auto 20px;
+}
+
+.tab-button {
+  flex: 1;
+  min-width: 120px;
+  height: 46px;
+  border: none;
+  background: transparent;
+  border-radius: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-button.active {
+  background: rgba(0, 196, 170, 0.1);
+  color: #00C4AA;
+}
+
+.tab-button:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.tab-button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: #00C4AA;
+  transition: width 0.3s ease;
+  border-radius: 3px 3px 0 0;
+}
+
+.tab-button.active::before {
+  width: 70%;
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.tab-button.active .tab-icon {
+  opacity: 1;
+}
+
+.tab-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Эффект пульсации */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-direction: column;
+    border-radius: 16px;
+  }
+  
+  .tab-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  
+  .primary-button,
+  .warning-button,
+  .info-button {
+    max-width: 100%;
+  }
+} 

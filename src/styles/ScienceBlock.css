@@ -1,0 +1,671 @@
+.science-block {
+  background: linear-gradient(135deg, #2c3e66 0%, #1e2c4a 100%);
+  padding: 80px 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.science-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(76, 223, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.science-block .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.science-block .section-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #ffffff;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Стили для табов */
+.science-tabs {
+  margin-bottom: 40px;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 30px;
+  position: relative;
+}
+
+.tab-button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 15px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: white;
+}
+
+.tab-button.active {
+  background: rgba(76, 223, 255, 0.1);
+  color: #4cdfff;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 70%;
+  height: 3px;
+  background: #4cdfff;
+  border-radius: 1.5px;
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.tab-button.active .tab-icon {
+  opacity: 1;
+}
+
+.tab-content {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Стили для карточек */
+.science-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.science-card {
+  background: linear-gradient(180deg, #3a5488 0%, #324878 100%);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.science-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(76, 223, 255, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.science-card:hover {
+  transform: translateY(-5px);
+}
+
+.science-card:hover::before {
+  opacity: 1;
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(76, 223, 255, 0.3));
+}
+
+.science-card h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: white;
+}
+
+.stats-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.stats-container::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(180deg, #4cdfff 0%, #38a8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(76, 223, 255, 0.3));
+}
+
+.stat-value.negative {
+  background: linear-gradient(180deg, #ff5c5c 0%, #ff3838 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(255, 92, 92, 0.3));
+}
+
+.stat-description {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.science-card p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Методы */
+.methods-section {
+  margin-top: 60px;
+}
+
+.methods-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.method-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.method-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.method-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.method-stats {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.method-stat {
+  text-align: center;
+}
+
+.method-stat .stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffdb58;
+  margin-bottom: 5px;
+}
+
+.method-stat .stat-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.method-card p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* CTA кнопка */
+.cta-button {
+  display: block;
+  width: 300px;
+  margin: 40px auto 0;
+  padding: 15px 30px;
+  background-color: #ffdb58;
+  color: #333;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Декоративные элементы */
+.science-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(76, 223, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Организации */
+.organizations-container {
+  padding: 20px;
+}
+
+.organizations-container h3 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: white;
+}
+
+.org-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.org-logo-item {
+  background: linear-gradient(180deg, #3a5488 0%, #324878 100%);
+  border-radius: 15px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transform: translateY(0);
+}
+
+.org-logo-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(76, 223, 255, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.org-logo-item:hover {
+  transform: translateY(-5px);
+}
+
+.org-logo-item:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.org-logo-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 10px rgba(76, 223, 255, 0.3));
+}
+
+.org-logo-item p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: white;
+  font-weight: 600;
+}
+
+.status {
+  font-size: 14px;
+  color: #4cdfff;
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(76, 223, 255, 0.1);
+  border-radius: 20px;
+}
+
+/* Цитата */
+.quote-block {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 40px;
+  position: relative;
+  margin-top: 40px;
+}
+
+.quote-marks {
+  font-size: 80px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  color: rgba(76, 223, 255, 0.2);
+  font-family: serif;
+}
+
+.quote-text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-source {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-align: right;
+}
+
+/* Индивидуальный подход */
+.personalized-approach {
+  padding: 20px;
+}
+
+.factors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.factor-item {
+  background: linear-gradient(180deg, #3a5488 0%, #324878 100%);
+  border-radius: 15px;
+  padding: 25px;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.factor-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(76, 223, 255, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.factor-item:hover {
+  transform: translateY(-5px);
+}
+
+.factor-item:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.factor-icon {
+  margin-bottom: 15px;
+  display: inline-flex;
+  padding: 10px;
+  background: rgba(76, 223, 255, 0.1);
+  border-radius: 10px;
+}
+
+.factor-content h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.factor-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.factor-list li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.factor-list li:before {
+  content: "•";
+  color: #4cdfff;
+  position: absolute;
+  left: 0;
+}
+
+.science-base {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 40px;
+}
+
+.science-base-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.science-base-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .science-block {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+    border-radius: 15px;
+  }
+
+  .tab-button {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .science-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-container::after {
+    display: none;
+  }
+
+  .quote-block {
+    padding: 30px;
+  }
+
+  .quote-text {
+    font-size: 16px;
+  }
+}
+
+.research-info {
+  grid-column: 1 / -1;
+  background: rgba(76, 223, 255, 0.05);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.info-icon {
+  width: 30px;
+  height: 30px;
+  background: rgba(76, 223, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4cdfff;
+  flex-shrink: 0;
+}
+
+.research-info p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.research-info strong {
+  color: #4cdfff;
+}
+
+@media (max-width: 768px) {
+  .research-info {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .info-icon {
+    margin: 0 auto;
+  }
+}
+
+.learn-more-button {
+  grid-column: 1 / -1;
+  background: linear-gradient(180deg, #ffdb58 0%, #ffd700 100%);
+  color: #333;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 20px auto 0;
+  display: block;
+  box-shadow: 0 4px 15px rgba(255, 219, 88, 0.3);
+}
+
+.learn-more-button.full-width {
+  width: 100%;
+  max-width: none;
+}
+
+.learn-more-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 219, 88, 0.4);
+}
+
+.learn-more-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(255, 219, 88, 0.3);
+} 

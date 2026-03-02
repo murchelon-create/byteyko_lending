@@ -33,7 +33,7 @@ const Hero = () => {
           isLoaded ? 'opacity-85 scale-100 blur-0' : 'opacity-0 scale-105 blur-sm'
         }`}
         style={{
-          backgroundImage: 'url("/hero.png")',
+          backgroundImage: `url("${process.env.PUBLIC_URL}/hero.png")`,
           filter: 'brightness(0.9)',
           backgroundPosition: 'center 20%'
         }}
@@ -124,7 +124,7 @@ const Hero = () => {
                   }
                 }}
               >
-                Избавьтесь от тревоги и усталости <span className="text-orange-400">уже сегодня</span>
+                Оздоровление организма при <span className="text-orange-400">100+ состояниях</span> с помощью дыхательных практик
               </motion.h1>
               
               <motion.p 
@@ -139,8 +139,7 @@ const Hero = () => {
                   }
                 }}
               >
-                Всего 10 минут в день помогут вам обрести спокойствие, энергию и здоровье. 
-                <span className="font-semibold">Начните прямо сейчас!</span>
+                Проверенный метод улучшения состояния при астме, повышенном давлении, тревожности и десятках других проблем всего за 10 минут в день
               </motion.p>
 
               <motion.button 

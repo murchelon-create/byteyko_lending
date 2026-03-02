@@ -75,10 +75,10 @@ const BreathingIssues = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Причины неправильного дыхания
+            Почему дыхание влияет на здоровье организма
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Узнайте основные факторы, которые могут негативно влиять на ваше дыхание
+            Неправильное дыхание может быть связано с множеством проблем со здоровьем, но правильные техники помогают организму восстановиться
           </p>
         </div>
 
@@ -126,10 +126,10 @@ const BreathingIssues = () => {
               </div>
 
               <button 
-                className={`w-full px-4 py-2 mt-4 rounded-lg border transition-all duration-300 flex items-center justify-center ${
+                className={`w-full px-4 py-2 mt-4 rounded-lg transition-all duration-300 flex items-center justify-center ${
                   openCards[index]
-                    ? 'border-teal-600 text-teal-600 bg-teal-50' 
-                    : 'border-gray-200 text-gray-600 hover:border-teal-600 hover:text-teal-600'
+                    ? 'bg-gradient-to-r from-primary-600/50 to-primary-700/50 hover:from-primary-600/60 hover:to-primary-700/60 text-white border border-white/50' 
+                    : 'border border-white/30 text-white/70 hover:border-white/50 hover:text-white hover:bg-white/10'
                 }`}
                 onClick={() => toggleCard(index)}
               >
@@ -142,7 +142,7 @@ const BreathingIssues = () => {
         <div className="mt-16 text-center">
           <button 
             onClick={handleLearnMoreClick}
-            className="bg-teal-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-teal-700 transition-colors duration-300 shadow-lg hover:shadow-xl">
+            className="bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-3 px-8 rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95">
             Узнать как исправить
           </button>
         </div>

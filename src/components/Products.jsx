@@ -1,74 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Check, Clock, Gift, Send } from 'lucide-react';
+import React from 'react';
+import { Check, Gift, Send, Clock } from 'lucide-react';
 import SectionTransition from './SectionTransition';
 
-const TELEGRAM_BOT = 'breathing_practices_bot'; // Замените на имя вашего бота
+const TELEGRAM_BOT = 'breathing_opros_bot'; // Имя бота для обработки заказов
 
 const Products = () => {
-  const [timeLeft, setTimeLeft] = useState('23:59:59');
-  const [improvedPeople, setImprovedPeople] = useState(0);
-  const [totalTestPassed, setTotalTestPassed] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59);
-      const diff = endOfDay - now;
-      
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      setTimeLeft(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-    }, 1000);
-
-    const calculatePeople = () => {
-      const now = new Date();
-      const dayOfMonth = now.getDate();
-      const baseNumber = 3; // Минимальное количество в начале месяца
-      const maxNumber = 35; // Максимальное количество в конце месяца
-      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-      
-      const calculated = Math.floor(baseNumber + (maxNumber - baseNumber) * (dayOfMonth / daysInMonth));
-      setImprovedPeople(calculated);
-    };
-
-    calculatePeople();
-    const peopleTimer = setInterval(calculatePeople, 3600000);
-
-    const calculateTotalTestPassed = () => {
-      const now = new Date();
-      const currentMonth = now.getMonth(); // 0-11
-      
-      // Базовое количество людей для каждого месяца
-      const monthlyBase = [15, 18, 20, 22, 25, 28, 30, 32, 35, 38, 40, 42];
-      
-      // Рассчитываем общее количество за все прошедшие месяцы
-      let total = 0;
-      for (let i = 0; i <= currentMonth; i++) {
-        // Добавляем небольшую случайность к базовому числу
-        const randomFactor = Math.floor(Math.random() * 5) - 2; // от -2 до +2
-        total += monthlyBase[i] + randomFactor;
-      }
-      
-      // Добавляем текущий день месяца
-      const dayOfMonth = now.getDate();
-      const currentMonthTotal = Math.floor((monthlyBase[currentMonth] / 30) * dayOfMonth);
-      
-      setTotalTestPassed(total + currentMonthTotal);
-    };
-
-    calculateTotalTestPassed();
-    const testTimer = setInterval(calculateTotalTestPassed, 3600000); // Обновляем каждый час
-
-    return () => {
-      clearInterval(timer);
-      clearInterval(peopleTimer);
-      clearInterval(testTimer);
-    };
-  }, []);
-
   const courseModules = [
     {
       title: 'Модуль 1: Основы дыхания',
@@ -105,49 +41,18 @@ const Products = () => {
     <section id="products" className="py-20 bg-gradient-to-b from-white to-primary-100">
       <SectionTransition>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Special Offer Banner */}
-          <div className="mb-16 max-w-3xl mx-auto">
-            <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white text-center shadow-xl">
-              <h3 className="text-2xl font-bold mb-6">
-                Только сегодня: Специальное предложение для участников теста дыхания
-              </h3>
-              <div className="flex items-center justify-center space-x-6 mb-8">
-                <div className="relative">
-                  <Clock className="h-12 w-12 animate-pulse text-yellow-300" />
-                  <div className="absolute -top-2 -right-2 bg-red-500 rounded-full w-4 h-4 animate-ping"></div>
-                </div>
-                <p className="font-mono text-4xl font-bold tracking-wider bg-white/10 px-6 py-3 rounded-xl">
-                  {timeLeft}
-                </p>
-              </div>
-              <div className="text-lg text-primary-100 font-medium">
-                Выберите свой путь к здоровому дыханию
-              </div>
-            </div>
-          </div>
-
-          {/* Social Proof */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-primary-100 text-primary-800 px-6 py-3 rounded-full font-medium text-lg">
-              Уже {improvedPeople} человек улучшили свое дыхание в этом месяце
-            </div>
-            <div className="mt-4 inline-block bg-green-50 text-green-800 px-6 py-3 rounded-full font-medium">
-              <span className="text-green-600 font-bold">{totalTestPassed}</span> человек прошли тест с начала года
-            </div>
-          </div>
-
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Начните улучшать своё дыхание <span className="text-teal-600">прямо сейчас</span>
+              Подробное описание каждого формата
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Выберите подходящий формат обучения. <span className="font-semibold text-teal-600">Акция действует до конца недели!</span>
+              Изучите детальную информацию о каждом формате обучения и выберите наиболее подходящий для вас вариант
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Стартовый комплект */}
-            <div className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300">
+            <div id="basic" className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300">
               <div className="relative p-8">
                 <div className="absolute -top-6 -right-6 bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2 rounded-xl text-lg transform rotate-12 shadow-lg font-bold z-10 whitespace-nowrap">
                   💎 Самый доступный старт 💎
@@ -212,14 +117,14 @@ const Products = () => {
             </div>
 
             {/* Индивидуальные консультации */}
-            <div className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300 mt-4">
+            <div id="consultation" className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300">
               <div className="relative p-8">
                 <div className="absolute -top-6 -right-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-xl text-lg transform rotate-12 shadow-lg font-bold z-10 whitespace-nowrap">
                   ⭐️ Персональный подход ⭐️
                 </div>
                 <div className="bg-teal-50 rounded-xl p-4 mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">Индивидуальные консультации</h3>
-                  <p className="text-gray-600 mt-2">Персональная работа с экспертом</p>
+                  <p className="text-gray-600 mt-2">Пакет из 3 персональных консультаций</p>
                   <div className="mt-2 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-base font-semibold">
                     <Clock className="h-5 w-5 animate-pulse" />
                     Осталось 2 места на этой неделе
@@ -265,14 +170,14 @@ const Products = () => {
             </div>
 
             {/* Полный курс видеоуроков */}
-            <div className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300 mt-4">
+            <div id="complete" className="bg-white rounded-2xl shadow-xl group hover:shadow-2xl transition-all duration-300">
               <div className="relative p-8">
                 <div className="absolute -top-6 -right-6 bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-xl text-lg transform rotate-12 shadow-lg font-bold z-10 whitespace-nowrap">
                   🔥 Акция -20% 🔥
                 </div>
                 <div className="bg-teal-50 rounded-xl p-4 mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">Полный курс видеоуроков</h3>
-                  <p className="text-gray-600 mt-2">Комплексное обучение + записи всех уроков</p>
+                  <p className="text-gray-600 mt-2">2 недели поддержки + доступ к материалам 6 месяцев</p>
                   <div className="mt-2 inline-flex items-center gap-2 bg-red-100 text-red-800 px-4 py-2 rounded-full text-base font-semibold">
                     <Clock className="h-5 w-5 animate-pulse" />
                     Скидка действует 24 часа
@@ -294,14 +199,19 @@ const Products = () => {
                     <span>Ваш бонус:</span>
                   </div>
                   <div className="text-yellow-800 font-medium flex items-center">
+                    <Check className="h-4 w-4 text-yellow-600 mr-2" />
                     Урок по дыхательным практикам для детей
+                  </div>
+                  <div className="text-yellow-800 font-medium flex items-center mt-2">
+                    <Check className="h-4 w-4 text-yellow-600 mr-2" />
+                    2 недели персонального сопровождения
                   </div>
                 </div>
                 <div className="flex items-baseline mb-8">
-                  <span className="text-5xl font-extrabold text-gray-900">14 999</span>
+                  <span className="text-5xl font-extrabold text-gray-900">11 900</span>
                   <span className="text-xl text-gray-500 ml-1">₽</span>
-                  <span className="ml-3 text-lg text-gray-400 line-through">22 000 ₽</span>
-                  <span className="ml-2 text-sm text-red-500 font-medium">-32%</span>
+                  <span className="ml-3 text-lg text-gray-400 line-through">16 000 ₽</span>
+                  <span className="ml-2 text-sm text-red-500 font-medium">-26%</span>
                 </div>
                 <button 
                   onClick={() => handleTelegramRedirect('course')}
@@ -310,21 +220,6 @@ const Products = () => {
                   <Send className="h-5 w-5 mr-2" />
                   Начать обучение через Telegram
                 </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Call to Action */}
-          <div className="mt-16 max-w-3xl mx-auto">
-            <div className="bg-gradient-to-r from-secondary-500 to-secondary-600 rounded-2xl p-8 text-white text-center shadow-xl">
-              <h3 className="text-2xl font-bold mb-4">
-                Не упустите возможность изменить свою жизнь!
-              </h3>
-              <p className="text-lg mb-6">
-                Выберите подходящий вариант и начните свой путь к здоровому дыханию уже сегодня
-              </p>
-              <div className="inline-block bg-white/20 rounded-lg px-4 py-2">
-                До конца акции осталось: {timeLeft}
               </div>
             </div>
           </div>

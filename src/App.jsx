@@ -15,6 +15,7 @@ import ScrollToTop from './components/ScrollToTop';
 import PopupNotifications from './components/PopupNotifications';
 import ProductComparison from './components/ProductComparison';
 import StickyCTA from './components/StickyCTA';
+import BuyCourse from './components/BuyCourse';
 import './App.css';
 
 function App() {
@@ -29,10 +30,11 @@ function App() {
       <ScienceBlock />
       <AboutBreathing />
       <AboutMe />
-      <Reviews />
-      <ProductComparison />
       <Products />
+      <ProductComparison />
+      <Reviews />
       <FAQ />
+      <BuyCourse />
       <ScrollToTop />
       <PopupNotifications />
       <StickyCTA />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 
 const navigation = [
   { name: 'О дыхании', href: '#about-breathing' },
@@ -69,6 +69,34 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
+            
+            {/* Контактные иконки */}
+            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/30">
+              <a
+                href="https://t.me/AS_Popov87"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                  isScrolled 
+                    ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+                title="Telegram"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </a>
+              <a
+                href="tel:+79224705187"
+                className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                  isScrolled 
+                    ? 'bg-primary-600 text-white hover:bg-primary-700' 
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+                title="Телефон: +7 (922) 470-51-87"
+              >
+                <Phone className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           <button
@@ -84,7 +112,7 @@ const Header = () => {
         </div>
 
         <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-96' : 'max-h-0'
+          isMobileMenuOpen ? 'max-h-[600px]' : 'max-h-0'
         }`}>
           <div className="py-6 space-y-4">
             {navigation.map((item) => (
@@ -106,6 +134,26 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
+            
+            {/* Контакты в мобильном меню */}
+            <div className="flex gap-3 px-6 pt-4 border-t border-white/20">
+              <a
+                href="https://t.me/AS_Popov87"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span>Telegram</span>
+              </a>
+              <a
+                href="tel:+79224705187"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-300"
+              >
+                <Phone className="h-5 w-5" />
+                <span>Позвонить</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

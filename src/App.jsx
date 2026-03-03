@@ -6,6 +6,7 @@ import AboutBreathing from './components/AboutBreathing';
 import BreathingIssues from './components/BreathingIssues';
 import Symptoms from './components/Symptoms';
 import BreathingConsequences from './components/BreathingConsequences';
+import BreathingTest from './components/BreathingTest';
 import ScienceBlock from './components/ScienceBlock';
 import AboutMe from './components/AboutMe';
 import Reviews from './components/Reviews';
@@ -28,6 +29,7 @@ function App() {
       <BreathingIssues />
       <Symptoms />
       <BreathingConsequences />
+      <BreathingTest />
       <ScienceBlock />
       <AboutBreathing />
       <AboutMe />

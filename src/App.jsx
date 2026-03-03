@@ -16,6 +16,7 @@ import PopupNotifications from './components/PopupNotifications';
 import ProductComparison from './components/ProductComparison';
 import StickyCTA from './components/StickyCTA';
 import BuyCourse from './components/BuyCourse';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <Reviews />
       <FAQ />
       <BuyCourse />
+      <Footer />
       <ScrollToTop />
       <PopupNotifications />
       <StickyCTA />

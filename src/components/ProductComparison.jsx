@@ -5,8 +5,8 @@ const ProductComparison = () => {
   return (
     <section className="products-comparison light-bg">
       <div className="container">
-        <h2 className="section-title text-center">Сравнение программ и выбор подходящего формата</h2>
-        <p className="section-subtitle text-center">Выберите оптимальный вариант для достижения ваших целей оздоровления</p>
+        <h2 className="section-title text-center">Выберите формат обучения методу Бутейко</h2>
+        <p className="section-subtitle text-center">Официальный метод с государственной апробацией — от первого знакомства до глубокой проработки</p>
         
         <div className="comparison-table-wrapper">
           <table className="comparison-table">
@@ -16,126 +16,128 @@ const ProductComparison = () => {
                 <th className="product-header">
                   <div className="product-name">Стартовый комплект</div>
                   <div className="product-price">990₽</div>
-                  <div className="old-price">2600₽</div>
+                  <div className="old-price">2 600₽</div>
                   <div className="discount-badge">-62%</div>
                 </th>
                 <th className="product-header">
-                  <div className="product-name">Индивидуальные консультации</div>
-                  <div className="product-price">4 500₽</div>
-                  <div className="old-price">6000₽</div>
-                  <div className="discount-badge">-25%</div>
-                  <div className="text-sm text-gray-600 mt-1">(3 консультации)</div>
+                  <div className="product-name">Разовая консультация</div>
+                  <div className="product-price">5 000₽</div>
+                  <div className="text-sm text-gray-600 mt-1">(1 занятие)</div>
                 </th>
                 <th className="product-header highlight">
                   <div className="bestseller-tag">Лучший выбор</div>
-                  <div className="product-name">Полный курс</div>
-                  <div className="product-price">14 999₽</div>
-                  <div className="old-price">22000₽</div>
-                  <div className="discount-badge">-32%</div>
+                  <div className="product-name">Пакет 5 занятий</div>
+                  <div className="product-price">22 000₽</div>
+                  <div className="old-price">25 000₽</div>
+                  <div className="discount-badge">-3 000₽</div>
                 </th>
               </tr>
             </thead>
             <tbody>
               {/* Основное содержание */}
               <tr>
+                <td className="feature-name">Формат</td>
+                <td>Видеоурок + PDF</td>
+                <td>Персональная консультация 1:1</td>
+                <td>5 персональных консультаций 1:1</td>
+              </tr>
+              <tr>
+                <td className="feature-name">Длительность занятия</td>
+                <td>—</td>
+                <td>60 минут</td>
+                <td>60 минут каждое</td>
+              </tr>
+              <tr>
                 <td className="feature-name">Доступ к материалам</td>
                 <td>Навсегда</td>
-                <td>60 дней</td>
-                <td>6 месяцев</td>
+                <td>—</td>
+                <td>—</td>
               </tr>
               <tr>
-                <td className="feature-name">Формат</td>
-                <td>Видеоурок и PDF</td>
-                <td>3 персональные консультации</td>
-                <td>Видеоуроки</td>
-              </tr>
-              <tr>
-                <td className="feature-name">Базовые техники дыхания</td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Обучение базовым техникам Бутейко</td>
+                <td>1 базовое упражнение</td>
                 <td><span className="yes-icon">✓</span></td>
                 <td><span className="yes-icon">✓</span></td>
               </tr>
               <tr>
-                <td className="feature-name">Оздоровительные практики</td>
-                <td>2 базовые</td>
-                <td>Индивидуальный подбор</td>
-                <td>Полный комплекс (12+)</td>
+                <td className="feature-name">Измерение контрольной паузы (CO₂)</td>
+                <td><span className="yes-icon">✓</span> Видеоурок</td>
+                <td><span className="yes-icon">✓</span></td>
+                <td><span className="yes-icon">✓</span> + отслеживание динамики</td>
               </tr>
               <tr>
-                <td className="feature-name">Поддержка</td>
+                <td className="feature-name">Персональный подбор упражнений</td>
                 <td><span className="no-icon">×</span></td>
-                <td>Во время консультаций</td>
-                <td>2 недели</td>
+                <td>Базовые рекомендации</td>
+                <td>Полный индивидуальный план</td>
+              </tr>
+              <tr>
+                <td className="feature-name">Поддержка между занятиями</td>
+                <td><span className="no-icon">×</span></td>
+                <td><span className="no-icon">×</span></td>
+                <td><span className="yes-icon">✓</span> в Telegram</td>
               </tr>
               
-              {/* Здоровье и профилактика болезней */}
+              {/* Для кого */}
               <tr className="category-row">
-                <td colSpan="4">Оздоровительный эффект</td>
+                <td colSpan="4">Для кого подходит</td>
               </tr>
               <tr>
-                <td className="feature-name">Снижение тревожности</td>
-                <td><span className="partial-icon">◐</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Базовые состояния</td>
+                <td colSpan="3">Астма, аллергия, тревога, стресс, давление, бессонница, панические атаки</td>
               </tr>
               <tr>
-                <td className="feature-name">Повышение энергии</td>
-                <td><span className="partial-icon">◐</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Хронические заболевания</td>
+                <td>Первое знакомство с методом</td>
+                <td><span className="partial-icon">◐</span> Первичная консультация</td>
+                <td><span className="yes-icon">✓</span> Полное сопровождение</td>
               </tr>
               <tr>
-                <td className="feature-name">Улучшение сна</td>
-                <td><span className="partial-icon">◐</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Охват метода Бутейко</td>
+                <td>1 базовое упражнение</td>
+                <td>Базовые принципы и первые техники</td>
+                <td><strong>Полный комплекс упражнений</strong> — глубокая проработка</td>
               </tr>
               <tr>
-                <td className="feature-name">Нормализация давления</td>
-                <td><span className="partial-icon">◐</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
-              </tr>
-              <tr>
-                <td className="feature-name">Профилактика заболеваний</td>
-                <td>15+ состояний</td>
+                <td className="feature-name">Подходит более чем для</td>
+                <td>—</td>
                 <td>30+ состояний</td>
-                <td>100+ заболеваний</td>
+                <td><strong>150+ состояний</strong></td>
               </tr>
               
-              {/* Бонусы */}
+              {/* Чего достигнете */}
               <tr className="category-row">
-                <td colSpan="4">Бонусы</td>
+                <td colSpan="4">Чего достигнете</td>
               </tr>
               <tr>
-                <td className="feature-name">Урок по замеру контрольной паузы</td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Научитесь снимать острые симптомы</td>
+                <td><span className="partial-icon">◐</span> Базовая техника</td>
+                <td><span className="yes-icon">✓</span> Техники первой помощи (приступ, паника, давление)</td>
+                <td><span className="yes-icon">✓</span> + работа с причинами</td>
               </tr>
               <tr>
-                <td className="feature-name">Аудиозапись для медитации</td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="no-icon">×</span></td>
-                <td><span className="no-icon">×</span></td>
+                <td className="feature-name">Нормализация CO₂ (рост КП)</td>
+                <td>Научитесь измерять КП</td>
+                <td><span className="partial-icon">◐</span> Первые шаги</td>
+                <td><span className="yes-icon">✓</span> Стабильная динамика</td>
               </tr>
               <tr>
-                <td className="feature-name">Анализ дыхания</td>
+                <td className="feature-name">Снижение дозы лекарств</td>
                 <td><span className="no-icon">×</span></td>
-                <td><span className="yes-icon">✓</span></td>
-                <td><span className="no-icon">×</span></td>
+                <td><span className="partial-icon">◐</span> Понимание принципов</td>
+                <td><span className="yes-icon">✓</span> Постепенное снижение под контролем</td>
               </tr>
               <tr>
-                <td className="feature-name">Персональное сопровождение</td>
+                <td className="feature-name">Устранение причины болезней</td>
                 <td><span className="no-icon">×</span></td>
-                <td>Во время консультаций</td>
-                <td>2 недели</td>
+                <td><span className="partial-icon">◐</span></td>
+                <td><span className="yes-icon">✓</span> Цель программы</td>
               </tr>
               <tr>
-                <td className="feature-name">Урок по дыхательным практикам для детей</td>
-                <td><span className="no-icon">×</span></td>
-                <td><span className="no-icon">×</span></td>
-                <td><span className="yes-icon">✓</span></td>
+                <td className="feature-name">Сколько времени нужно заниматься</td>
+                <td>10–15 минут в день</td>
+                <td>10–15 минут в день (базовые техники)</td>
+                <td><strong>От 2 часов в день</strong> — дыхание встраивается в жизнь постоянно</td>
               </tr>
               
               {/* Кнопки покупки */}
@@ -148,7 +150,7 @@ const ProductComparison = () => {
                   <a href="#consultation" className="cta-button cta-small">Забронировать</a>
                 </td>
                 <td>
-                  <a href="#complete" className="cta-button cta-small cta-primary">Начать обучение</a>
+                  <a href="#consultation" className="cta-button cta-small cta-primary">Начать обучение</a>
                 </td>
               </tr>
             </tbody>
@@ -156,11 +158,11 @@ const ProductComparison = () => {
         </div>
         
         <div className="table-footnote">
-          <p>* Результаты могут отличаться в зависимости от индивидуальных особенностей и регулярности практики</p>
+          <p>⁂ Результат зависит от систематичности практики и выполнения рекомендаций инструктора. Метод Бутейко — это не замена медицинского лечения, а дополнение к нему. Снижение дозы лекарств происходит постепенно по мере роста контрольной паузы и только под контролем лечащего врача.</p>
         </div>
       </div>
     </section>
   );
 };
 
-export default ProductComparison; 
+export default ProductComparison;

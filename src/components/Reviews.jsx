@@ -17,7 +17,7 @@ const initialReviews = [
     },
     date: '9 февраля 2024',
     avatar: `${process.env.PUBLIC_URL}/reviews/luba.jpg`,
-    image: `${process.env.PUBLIC_URL}/reviews/otviv1.jpg`,
+    image: '', // ← УБРАЛИ ФОТО
     likes: 24,
     courseDuration: '2 месяца'
   },
@@ -36,7 +36,7 @@ const initialReviews = [
     },
     date: '15 марта 2024',
     avatar: `${process.env.PUBLIC_URL}/reviews/ALEXENDRA.jpg`,
-    image: `${process.env.PUBLIC_URL}/reviews/otziv2.jpg`,
+    image: '', // ← УБРАЛИ ФОТО
     likes: 18,
     courseDuration: '1 месяц'
   },

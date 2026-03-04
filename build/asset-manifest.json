@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/breathing-practices/static/css/main.c09d6344.css",
-    "main.js": "/breathing-practices/static/js/main.ef3c59ed.js",
-    "static/js/453.5d720794.chunk.js": "/breathing-practices/static/js/453.5d720794.chunk.js",
-    "index.html": "/breathing-practices/index.html",
-    "main.c09d6344.css.map": "/breathing-practices/static/css/main.c09d6344.css.map",
-    "main.ef3c59ed.js.map": "/breathing-practices/static/js/main.ef3c59ed.js.map",
-    "453.5d720794.chunk.js.map": "/breathing-practices/static/js/453.5d720794.chunk.js.map"
+    "main.css": "/static/css/main.caafb076.css",
+    "main.js": "/static/js/main.3a13cbf7.js",
+    "static/js/453.5d720794.chunk.js": "/static/js/453.5d720794.chunk.js",
+    "index.html": "/index.html",
+    "main.caafb076.css.map": "/static/css/main.caafb076.css.map",
+    "main.3a13cbf7.js.map": "/static/js/main.3a13cbf7.js.map",
+    "453.5d720794.chunk.js.map": "/static/js/453.5d720794.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c09d6344.css",
-    "static/js/main.ef3c59ed.js"
+    "static/css/main.caafb076.css",
+    "static/js/main.3a13cbf7.js"
   ]
 }

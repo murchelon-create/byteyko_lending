@@ -1,6 +1,7 @@
 {
   "name": "breathing-practice-site",
   "version": "0.1.0",
+  "homepage": "https://dyhanie-buteiko72.ru",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -5,11 +5,14 @@ import SectionTransition from './SectionTransition';
 const TELEGRAM_BOT = 'breathing_opros_bot';
 
 const Products = () => {
+  // 🎯 КОМБИНИРОВАННЫЕ МЕТКИ: источник + продукт
+  // Формат: website_cta_ПРОДУКТ
+  // Позволяет отслеживать И откуда пришёл И что выбрал
   const handleTelegramRedirect = (product) => {
     const links = {
-      starter: `https://t.me/${TELEGRAM_BOT}?start=starter`,
-      consultation: `https://t.me/${TELEGRAM_BOT}?start=consultation`,
-      package5: `https://t.me/${TELEGRAM_BOT}?start=package5`
+      starter: `https://t.me/${TELEGRAM_BOT}?start=website_cta_starter`,
+      consultation: `https://t.me/${TELEGRAM_BOT}?start=website_cta_consultation`,
+      package5: `https://t.me/${TELEGRAM_BOT}?start=website_cta_package5`
     };
     window.open(links[product], '_blank');
   };

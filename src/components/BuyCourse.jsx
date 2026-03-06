@@ -4,13 +4,11 @@ import { Send, Clock, Gift } from 'lucide-react';
 const TELEGRAM_BOT = 'breathing_opros_bot';
 
 const BuyCourse = () => {
+  // 🎯 ВСЕ КНОПКИ ПОКУПКИ ИСПОЛЬЗУЮТ МЕТКУ website_cta
   const handleTelegramRedirect = (product) => {
-    const links = {
-      starter: `https://t.me/${TELEGRAM_BOT}?start=starter`,
-      consultation: `https://t.me/${TELEGRAM_BOT}?start=consultation`,
-      package5: `https://t.me/${TELEGRAM_BOT}?start=package5`
-    };
-    window.open(links[product], '_blank');
+    // Единая ссылка с отслеживанием источника "website_cta" (призыв к действию)
+    const botLink = `https://t.me/${TELEGRAM_BOT}?start=website_cta`;
+    window.open(botLink, '_blank');
   };
 
   return (

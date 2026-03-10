@@ -19,8 +19,10 @@ const StickyCTA = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const goToTestBot = () => {
-    window.open('https://t.me/breathing_diagnostic_bot', '_blank');
+  // Плавный скролл к секции диагностики
+  const goToTestSection = () => {
+    const section = document.querySelector('#breathing-test');
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -30,7 +32,7 @@ const StickyCTA = () => {
       }`}
     >
       <button
-        onClick={goToTestBot}
+        onClick={goToTestSection}
         className="group flex items-center justify-center bg-gradient-to-r from-[#ff7d3e] to-[#ff5c15] text-white font-semibold px-4 md:px-6 py-3 md:py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden text-sm md:text-base"
       >
         <span className="absolute inset-0 bg-[#ff5c15] opacity-40 z-0 animate-pulse rounded-full"></span>

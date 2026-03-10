@@ -41,8 +41,9 @@ const BreathingTest = () => {
     setCurrentScreen((prev) => (prev - 1 + screens.length) % screens.length);
   };
 
+  // CTA — переход в бота с параметром источника
   const goToTestBot = () => {
-    window.open('https://t.me/breathing_diagnostic_bot', '_blank');
+    window.open('https://t.me/breathing_diagnostic_bot?start=website_test', '_blank');
   };
 
   return (

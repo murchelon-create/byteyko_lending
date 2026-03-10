@@ -6,7 +6,7 @@ const navigation = [
   { name: 'Обо мне', href: '#about-me' },
   { name: 'Отзывы', href: '#reviews' },
   { name: 'FAQ', href: '#faq' },
-  { name: 'Пройти тест', href: 'https://t.me/breathing_diagnostic_bot', isHighlighted: true, isExternal: true },
+  { name: 'Пройти тест', href: '#breathing-test', isHighlighted: true },
   { name: 'Купить курс', href: '#products' }
 ];
 
@@ -21,12 +21,8 @@ const Header = () => {
   }, []);
 
   const handleNavClick = (item) => {
-    if (item.isExternal) {
-      window.open(item.href, '_blank');
-    } else {
-      const section = document.querySelector(item.href);
-      if (section) section.scrollIntoView({ behavior: 'smooth' });
-    }
+    const section = document.querySelector(item.href);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
 

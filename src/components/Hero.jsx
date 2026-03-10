@@ -12,14 +12,15 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 🆕 ГЛАВНАЯ КНОПКА: Запись через бота с отслеживанием источника
+  // Запись на консультацию через бота
   const goToBot = () => {
     window.open('https://t.me/breathing_opros_bot?start=website_hero', '_blank');
   };
 
-  // Оставляем диагностический бот для теста (опциональная кнопка)
-  const goToTestBot = () => {
-    window.open('https://t.me/breathing_diagnostic_bot', '_blank');
+  // Плавный скролл к секции с описанием теста
+  const goToTestSection = () => {
+    const section = document.querySelector('#breathing-test');
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -121,7 +122,7 @@ const Hero = () => {
                 <span className="font-semibold text-orange-300">— дефицит CO₂</span>{' '}— а не заглушает симптомы.
               </motion.p>
 
-              {/* 🆕 ГЛАВНАЯ КНОПКА - Запись через бота */}
+              {/* Кнопки */}
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                 initial={{ y: 20, opacity: 0 }}
@@ -136,14 +137,13 @@ const Hero = () => {
                   🌬️ Записаться на консультацию
                 </motion.button>
 
-                {/* Опциональная кнопка для диагностического теста */}
                 <motion.button
-                  onClick={goToTestBot}
+                  onClick={goToTestSection}
                   className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold py-4 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white/20 active:scale-95 focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-teal-800"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  📊 Пройти тест дыхания
+                  📊 Пройти тест на качество дыхания
                 </motion.button>
               </motion.div>
 
